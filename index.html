@@ -166,7 +166,7 @@ details.help li{margin-bottom:6px}
 
 <header>
   <div class="brand">JCB <span>LAPTIMER</span></div>
-  <div class="pills"><span id="src" class="pill">Sin GPS</span><span id="hz" class="pill">0 Hz</span><span id="fix" class="pill">—</span></div>
+  <div class="pills"><span id="src" class="pill">Sin GPS</span><span id="hz" class="pill">0 Hz</span></div>
 </header>
 
 <main class="app">
@@ -761,10 +761,10 @@ function frame(now){
   $('spd').textContent = live ? Math.round(S.lastSpd*3.6) : 0;
   const hz = live ? S.hzT.length : 0, hp = $('hz');
   hp.textContent = hz + ' Hz'; hp.className = 'pill' + (hz>=10 ? ' on' : hz>0 ? ' warn' : '');
-  let fi = '—';
-  if(S.sats!=null) fi = S.sats + ' sat' + (S.hdop ? ' · ' + S.hdop : '');
-  else if(S.acc!=null) fi = '±' + Math.round(S.acc) + ' m';
-  $('fix').textContent = fi;
+  let fi = '';
+  if(S.sats!=null) fi = ' · ' + S.sats + ' sat';
+  else if(S.acc!=null) fi = ' · ±' + Math.round(S.acc) + ' m';
+  if(live) hp.textContent = hz + ' Hz' + fi;
   if(now - lastMap > 500){ lastMap = now; Map_.flush(); }
 }
 
